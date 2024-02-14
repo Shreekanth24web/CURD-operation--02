@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>CURD Operation</title>
+      <style>
+            * {
+                  box-sizing: border-box;
+            }
+
+            body {
+                  background-color: #d8d8d8;
+                  margin: 0 200px;
+                  font-family: sans-serif;
+                  height: 100vh;
+            }
+
+            h1{
+                  font-family:Verdana, Geneva, Tahoma, sans-serif;
+            }
+            label {
+                  font-weight: 700;
+            }
+
+            form input {
+                  height: 50px;
+                  width: 60%;
+                  font-size: 16px;
+                  border-radius: 5px;
+                  border: 0;
+                  outline: 0;
+
+            }
+
+            form button {
+                  padding: 5px 20px;
+                  font-size: 20px;
+                  border-radius: 10px;
+                  background-color: green;
+                  color: #fff;
+                  cursor: pointer;
+                  border: 0;
+            }
+
+            .list-1 button {
+                  padding: 5px 10px;
+                  font-size: 20px;
+                  border-radius: 10px;
+                  background-color: green;
+                  color: #fff;
+                  cursor: pointer;
+                  border: 0;
+
+            }
+
+            #editBtn {
+                  background-color: yellow;
+                  color: black;
+            }
+
+            #deleteBtn {
+                  background-color: red;
+                  color: white;
+            }
+
+            .inputBtn {
+                  display: flex;
+                  gap: 20px;
+            }
+            .inputBtn input{
+                  padding: 0px 20px;
+
+            }
+
+            #msg {
+                  color: red;
+                  font-weight: 500;
+                  margin: 10px;
+                
+            }
+
+            .list {
+                  background-color: #fff;
+                  width: 70%;
+                  border-radius: 8px;
+            }
+
+            .list-1 input {
+                  width: 100%;
+                  outline: 0;
+                  font-size: 18px;
+            }
+
+            .list-1 {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  padding: 8px;
+                  gap: 20px;
+            }
+
+
+
+            .list-1 p {
+                  border: 2px solid lightblue;
+                  width: 100%;
+                  padding: 10px 15px;
+                  border-radius: 5px;
+            }
+      </style>
+</head>
+
+<body>
+      <h1>CURD Operation 2</h1>
+      <div class="container">
+            <div class="form">
+                  <form id="form">
+                        <label for="input">Enter your daily tasks</label> <br><br>
+                        <div class="inputBtn">
+                              <input type="text" class="input-1" id="input" placeholder="List your tasks" name="task">
+                              <button type="submit">Add</button>
+                        </div>
+                        <div id="msg"></div> <br>
+                  </form>
+            </div>
+            <div class="list" id="listTask">
+                  <div>
+                        <div class="list-1">
+                              <p>Task 1</p>
+                              <button onclick="editTask(this)" id="editBtn" type="button">Edit</button>
+                              <button onclick="deleteTask(this)" id="deleteBtn" type="button">Delete</button>
+                        </div>
+                  </div>
+
+            </div>
+      </div>
+
+      <script>
+            let form = document.getElementById("form")
+            let input = document.getElementById("input")    
+            let listTask = document.getElementById("listTask")
+            let msg = document.getElementById("msg")
+
+            form.addEventListener("submit", (e) => {
+                  e.preventDefault();
+                  console.log("clicked");
+                  formValidation();
+            })
+
+
+            let formValidation = () => {
+                  if (input.value === '') {
+                        msg.innerHTML = 'Field cannot be Empty'
+                  } else {
+                        msg.innerHTML = ''
+                        acceptData();
+                  }
+            }
+
+            //store the data
+            let data = {}
+            console.log(data)
+            let acceptData = () => {
+                  data['text'] = input.value
+                  createTask();
+                  console.log(data)
+            }
+
+            let createTask = () => {
+                  listTask.innerHTML += `
+                  <div>
+                        <div class="list-1">
+                              <p>${data.text}</p> 
+                              <button onclick="editTask(this)" id="editBtn">Edit</button> 
+                              <button onclick="deleteTask(this)" id="deleteBtn">Delete</button>
+                        </div>
+                  </div>`
+                  input.value = ''
+            };
+
+            let deleteTask = (e) => {
+                  e.parentElement.parentElement.remove()
+                  console.log('delete');
+
+            }
+            let editTask = (e) => {
+                  input.value = e.parentElement.firstElementChild.innerHTML;
+                  e.parentElement.parentElement.remove();
+                  console.log(e.parentElement.parentElement)
+                  console.log('edit')
+            }
+      </script>
+</body>
+
+</html>
